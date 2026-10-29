@@ -9,7 +9,7 @@ class LessonInline(admin.StackedInline):
 
 class ChoiceInline(admin.StackedInline):
     model = Choice
-    extra = 4
+    extra = 2
 
 
 class QuestionInline(admin.StackedInline):
@@ -17,16 +17,16 @@ class QuestionInline(admin.StackedInline):
     extra = 2
 
 
-class QuestionAdmin(admin.ModelAdmin):
-    inlines = [ChoiceInline]
-    list_display = ['content', 'course', 'grade']
-
-
 class CourseAdmin(admin.ModelAdmin):
-    inlines = [LessonInline]
+    inlines = [LessonInline, QuestionInline]
     list_display = ('name', 'pub_date')
     list_filter = ['pub_date']
     search_fields = ['name', 'description']
+
+
+class QuestionAdmin(admin.ModelAdmin):
+    inlines = [ChoiceInline]
+    list_display = ['content']
 
 
 class LessonAdmin(admin.ModelAdmin):
